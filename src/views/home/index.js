@@ -26,13 +26,25 @@ class Home extends Component {
   }
 
   render() {
-    const { posts, categories } = this.props
+    const { categories, match } = this.props
+    let posts, pageTitle = null;
+
+    if (match.params.category) {
+      posts = this.props.posts.filter((post) => post.category === match.params.category )
+      pageTitle = `Posts from the ${match.params.category} category`
+    } else {
+      posts = this.props.posts
+      pageTitle = "All the Posts"
+    }
+
     return (
       <div>
-        <div className="header text-center">
-          <h2>Cool Content Displayer</h2>
-        </div>
         <div className="container">
+          <div className="row">
+            <div className="col-sm-12 text-center">
+              <h1>{pageTitle}</h1>
+            </div>
+          </div>
           <div className="row">
             <div className="col-sm-3 sidebar-left">
               <h5 className="text-center sidebar-title">Pick a Category</h5>
@@ -41,6 +53,10 @@ class Home extends Component {
               </ul>
             </div>
             <div className="col-sm-8 posts-main">
+              <div className="col-sm-4 sortbox">
+                <p>sort box here</p>
+              </div>
+              <hr />
               <div className="row">
                 {posts.map((post) => <Posts key={post.id} post={post} vote={this.votePost}/>)}
               </div>
