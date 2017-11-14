@@ -35,3 +35,7 @@ a {
   list-style-type: none;
   padding: 0;
 }
+
+.btn-circle {
+  border-radius: 50%;
+}
