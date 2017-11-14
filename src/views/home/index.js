@@ -6,8 +6,19 @@ import Categories from '../../components/Categories'
 import Posts from '../../components/Posts'
 import { getPosts } from '../../redux/modules/posts/actions'
 import { getCategories } from '../../redux/modules/categories/actions'
+import { postVote } from '../../redux/modules/posts/actions'
 
 class Home extends Component {
+  constructor(props){
+    super(props)
+
+    this.votePost = this.votePost.bind(this);
+  }
+
+  votePost = (e, voteType) => {
+    e.preventDefault();
+    this.props.postVote(e.currentTarget.id, voteType);
+  }
 
   componentDidMount() {
     this.props.getCategories();
@@ -31,7 +42,7 @@ class Home extends Component {
             </div>
             <div className="col-sm-8 posts-main">
               <div className="row">
-                {posts.map((post) => <Posts key={post.id} post={post}/>)}
+                {posts.map((post) => <Posts key={post.id} post={post} vote={this.votePost}/>)}
               </div>
             </div>
           </div>
@@ -51,7 +62,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators({
     getPosts: getPosts,
-    getCategories: getCategories
+    getCategories: getCategories,
+    postVote: postVote
   }, dispatch)
 }
 
