@@ -31,6 +31,11 @@ a {
   color: crimson;
 }
 
+a.app-title {
+  text-decoration: none;
+  color: darkgrey;
+}
+
 .category-list {
   list-style-type: none;
   padding: 0;
@@ -38,4 +43,8 @@ a {
 
 .btn-circle {
   border-radius: 50%;
+}
+
+.sortbox {
+  margin-left: auto;
 }
