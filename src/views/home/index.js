@@ -12,7 +12,18 @@ class Home extends Component {
   constructor(props){
     super(props)
 
+    this.handleChange = this.handleChange.bind(this);
     this.votePost = this.votePost.bind(this);
+  }
+
+  state = {
+    sortBy: ""
+  }
+
+  handleChange = (e) => {
+    this.setState({
+      sortBy: e.currentTarget.value
+    })
   }
 
   votePost = (e, voteType) => {
@@ -37,6 +48,35 @@ class Home extends Component {
       pageTitle = "All the Posts"
     }
 
+    switch(this.state.sortBy) {
+      case "scoreASC":
+        posts = posts.sort((a, b) => {
+          return b.voteScore - a.voteScore
+        });
+        break;
+
+      case "scoreDESC":
+        posts = posts.sort((a, b) => {
+          return a.voteScore - b.voteScore
+        });
+        break;
+
+      case "dateASC":
+        posts = posts.sort((a, b) => {
+          return b.timestamp - a.timestamp
+        })
+        break;
+
+      case "dateDESC":
+        posts = posts.sort((a, b) => {
+          return a.timestamp - b.timestamp
+        })
+        break;
+
+      default:
+        break;
+    }
+
     return (
       <div>
         <div className="container">
@@ -53,8 +93,14 @@ class Home extends Component {
               </ul>
             </div>
             <div className="col-sm-8 posts-main">
-              <div className="col-sm-4 sortbox">
-                <p>sort box here</p>
+              <div className="col-sm-6 sortbox">
+                <select className="custom-select" value={this.state.sortBy} onChange={this.handleChange}>
+                  <option value="" disabled>Sort By:</option>
+                  <option value="dateASC">Date (newest first)</option>
+                  <option value="dateDESC">Date (oldest first)</option>
+                  <option value="scoreASC">Score (highest first)</option>
+                  <option value="scoreDESC">Score (lowest first)</option>
+                </select>
               </div>
               <hr />
               <div className="row">
