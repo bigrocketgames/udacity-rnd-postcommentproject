@@ -100,7 +100,7 @@ class Home extends Component {
               </div>
               <hr />
               <div className="row">
-                {posts.map((post) => <Posts key={post.id} post={post} vote={this.votePost}/>)}
+                {posts.length > 0 && posts.map((post) => <Posts key={post.id} post={post} vote={this.votePost}/>)}
               </div>
             </div>
           </div>
