@@ -3,6 +3,7 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 
 import Categories from '../../components/Categories'
+import Sortbox from '../../components/Sortbox'
 import Posts from '../../components/Posts'
 import { getPosts } from '../../redux/modules/posts/actions'
 import { getCategories } from '../../redux/modules/categories/actions'
@@ -21,6 +22,7 @@ class Home extends Component {
   }
 
   handleChange = (e) => {
+    e.preventDefault()
     this.setState({
       sortBy: e.currentTarget.value
     })
@@ -94,13 +96,7 @@ class Home extends Component {
             </div>
             <div className="col-sm-8 posts-main">
               <div className="col-sm-6 sortbox">
-                <select className="custom-select" value={this.state.sortBy} onChange={this.handleChange}>
-                  <option value="" disabled>Sort By:</option>
-                  <option value="dateASC">Date (newest first)</option>
-                  <option value="dateDESC">Date (oldest first)</option>
-                  <option value="scoreASC">Score (highest first)</option>
-                  <option value="scoreDESC">Score (lowest first)</option>
-                </select>
+                <Sortbox sortBy={this.state.sortBy} handleChange={this.handleChange} />
               </div>
               <hr />
               <div className="row">
