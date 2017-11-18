@@ -34,6 +34,17 @@ export const getPosts = () => {
   }
 }
 
+export const getSinglePost = (postId) => {
+  return dispatch => {
+    return fetch(`${API_URL}/posts/${postId}`, {
+      headers: { 'Authorization': 'let-me-in' }
+    })
+      .then(response => response.json())
+      .then(post => dispatch(getPostsSuccess(post)))
+      .catch(error => console.log(error))
+  }
+}
+
 export const postVote = (id, vote) => {
   return dispatch => {
     return fetch(`${API_URL}/posts/${id}`, {
