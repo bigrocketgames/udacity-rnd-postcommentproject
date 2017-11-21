@@ -4,12 +4,16 @@ export default (state = [], action) => {
       return action.posts;
       
     case 'UPDATE_POST_SUCCESS':
-      const index = state.findIndex(post => post.id === action.post.id);
-      return [
-        ...state.slice(0, index),
-        action.post,
-        ...state.slice(index+1)
-      ];
+      if (state.length > 0) {
+        const index = state.findIndex(post => post.id === action.post.id);
+        return [
+          ...state.slice(0, index),
+          action.post,
+          ...state.slice(index+1)
+        ];
+      } else {
+        return action.post;
+      }
 
     default:
       return state;
