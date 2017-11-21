@@ -4,15 +4,17 @@ import { connect } from 'react-redux'
 import ThumbsUpIcon from 'react-icons/lib/fa/thumbs-up'
 import ThumbsDownIcon from 'react-icons/lib/fa/thumbs-down'
 
-import { getSinglePost } from '../../redux/modules/posts/actions'
-import { postVote } from '../../redux/modules/posts/actions'
-import { getComments } from '../../redux/modules/comments/actions'
+import { getSinglePost, postVote } from '../../redux/modules/posts/actions'
+// import { postVote } from '../../redux/modules/posts/actions'
+import { getComments, commentVote } from '../../redux/modules/comments/actions'
+import Comments from '../../components/Comments'
 
 class SinglePost extends Component {
   constructor(props) {
     super(props)
 
     this.votePost = this.votePost.bind(this)
+    this.voteComment = this.voteComment.bind(this)
   }
   
   componentDidMount() {
@@ -23,6 +25,11 @@ class SinglePost extends Component {
   votePost = (e, voteType) => {
     e.preventDefault();
     this.props.postVote(e.currentTarget.id, voteType);
+  }
+
+  voteComment = (e, voteType) => {
+    e.preventDefault();
+    this.props.commentVote(e.currentTarget.id, voteType);
   }
 
   render(){
@@ -38,6 +45,9 @@ class SinglePost extends Component {
         <p className="comment-count">{post.commentCount} comments</p>
         <p className="post-votes"><button className="btn btn-primary btn-circle" id={post.id} onClick={(e) => this.votePost(e, "upVote")}><ThumbsUpIcon size={20}/></button><button className="btn btn-primary btn-circle" id={post.id} onClick={(e) => this.votePost(e, "downVote")}><ThumbsDownIcon size={20}/></button>  {post.voteScore}</p>
         <hr />
+        <br />
+        <h4 className="comments-title text-center">COMMENTS</h4>
+        {comments.length > 0 && comments.map((comment) => <Comments key={comment.id} comment={comment} voteComment={this.voteComment} />) }
       </div>
     )
   }
@@ -54,7 +64,8 @@ const mapDispatchToProps = (dispatch) => {
   return bindActionCreators({
     getSinglePost: getSinglePost,
     postVote: postVote,
-    getComments: getComments
+    getComments: getComments,
+    commentVote: commentVote
   }, dispatch)
 }
 
