@@ -3,6 +3,14 @@ export default (state = [], action) => {
     case 'GET_COMMENTS_SUCCESS':
       return action.comments;
       
+    case 'UPDATE_COMMENT_SUCCESS':
+      const index = state.findIndex(comment => comment.id === action.comment.id);
+      return [
+        ...state.slice(0, index),
+        action.comment,
+        ...state.slice(index+1)
+      ];
+
     default:
       return state;
   }
