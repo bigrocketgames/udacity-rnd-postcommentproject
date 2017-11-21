@@ -19,11 +19,11 @@
   margin: auto;
 }
 
-.comment-count {
+.comment-count, .comment-author {
   display: inline-block;
 }
 
-.post-votes {
+.post-votes, .post-comments {
   float: right;
 }
 
