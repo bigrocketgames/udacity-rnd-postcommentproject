@@ -11,8 +11,11 @@ class Posts extends Component {
         <Link to={`/${post.category}/${post.id}`}><h3 className="text-center">{post.title}</h3></Link>
         <h5>By: {post.author}</h5>
         <p>{post.body}</p>
-        <p className="comment-count">{post.commentCount} comments</p>
-        <p className="post-votes"><button className="btn btn-primary btn-circle" id={post.id} onClick={(e) => vote(e, "upVote")}><ThumbsUpIcon size={20}/></button><button className="btn btn-primary btn-circle" id={post.id} onClick={(e) => vote(e, "downVote")}><ThumbsDownIcon size={20}/></button>  {post.voteScore}</p>
+        <div>
+          <p className="comment-count">{post.commentCount} comments</p>
+          <p className="post-votes"><button className="btn btn-primary btn-circle" id={post.id} onClick={(e) => vote(e, "upVote")}><ThumbsUpIcon size={20}/></button><button className="btn btn-primary btn-circle" id={post.id} onClick={(e) => vote(e, "downVote")}><ThumbsDownIcon size={20}/></button>  {post.voteScore}</p>
+        </div>
+        <Link to={`/${post.category}/${post.id}/edit`} className="post-edit-link btn btn-secondary">Edit Post</Link>
         <hr />
       </div>
     )
