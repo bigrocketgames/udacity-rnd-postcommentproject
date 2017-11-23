@@ -4,6 +4,7 @@ import { Route, Switch, Link } from 'react-router-dom';
 import '../App.css';
 import Home from '../views/home';
 import SinglePost from '../views/singlePost';
+import PostForm from './PostForm';
 
 class App extends Component {
   render() {
@@ -15,7 +16,9 @@ class App extends Component {
         <Switch>
           <Route exact path='/' component={Home} />
           <Route exact path='/:category' component={Home} />
+          <Route exact path='/posts/new' component={PostForm} />
           <Route exact path='/:category/:post_id' component={SinglePost} />
+          <Route exact path='/:category/:post_id/edit' component={PostForm} />
         </Switch>
       </div>
     );
