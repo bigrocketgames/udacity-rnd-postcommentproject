@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
+import { Link } from 'react-router-dom'
 
 import Categories from '../../components/Categories'
 import Sortbox from '../../components/Sortbox'
@@ -95,8 +96,13 @@ class Home extends Component {
               </ul>
             </div>
             <div className="col-sm-8 posts-main">
-              <div className="col-sm-6 sortbox">
-                <Sortbox sortBy={this.state.sortBy} handleChange={this.handleChange} />
+              <div className="row">
+                <div className="col-sm-6 addNewPost">
+                  <Link to="/posts/new" className="btn btn-secondary">Add New Post</Link>
+                </div>
+                <div className="col-sm-6 sortbox">
+                  <Sortbox sortBy={this.state.sortBy} handleChange={this.handleChange} />
+                </div>
               </div>
               <hr />
               <div className="row">
