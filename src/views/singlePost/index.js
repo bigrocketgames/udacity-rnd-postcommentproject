@@ -47,7 +47,11 @@ class SinglePost extends Component {
           <p className="comment-count">{post.commentCount} comments</p>
           <p className="post-votes"><button className="btn btn-primary btn-circle" id={post.id} onClick={(e) => this.votePost(e, "upVote")}><ThumbsUpIcon size={20}/></button><button className="btn btn-primary btn-circle" id={post.id} onClick={(e) => this.votePost(e, "downVote")}><ThumbsDownIcon size={20}/></button>  {post.voteScore}</p>
         </div>
-        <Link to={`/${post.category}/${post.id}/edit`} className="post-edit-link btn btn-secondary">Edit Post</Link>
+        <Link to={{
+          pathname: `/${post.category}/${post.id}/edit`,
+          state: { post: post}
+        }} 
+        className="post-edit-link btn btn-secondary">Edit Post</Link>
         <hr />
         <br />
         <h4 className="comments-title text-center">COMMENTS</h4>
