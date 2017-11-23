@@ -50,6 +50,10 @@ a.app-title {
   margin-left: auto; 
 }
 
+.addNewPost {
+  margin-top: 15px;
+}
+
 .custom-select {
   box-shadow: 2px 2px 3px 2px black;
 }
