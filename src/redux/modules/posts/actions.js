@@ -13,6 +13,7 @@ export const getPostsSuccess = (posts) => {
 }
 
 export const updatePostSuccess = (post) => {
+  debugger
   return {
     type: UPDATE_POST_SUCCESS,
     post: post
@@ -41,6 +42,22 @@ export const getSinglePost = (postId) => {
     })
       .then(response => response.json())
       .then(post => dispatch(getPostsSuccess(post)))
+      .catch(error => console.log(error))
+  }
+}
+
+export const updatePost = (post_id, postDetails) => {
+  return dispatch => {
+    return fetch(`${API_URL}/posts/${post_id}`, {
+      method: 'PUT',
+      headers: {
+        'Authorization': 'let-me-in',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify( {postDetails} )
+    })
+      .then(response => response.json())
+      .then(post => dispatch(updatePostSuccess(post)))
       .catch(error => console.log(error))
   }
 }
