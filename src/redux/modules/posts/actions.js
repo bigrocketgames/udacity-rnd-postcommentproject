@@ -13,7 +13,6 @@ export const getPostsSuccess = (posts) => {
 }
 
 export const updatePostSuccess = (post) => {
-  debugger
   return {
     type: UPDATE_POST_SUCCESS,
     post: post
@@ -54,7 +53,7 @@ export const updatePost = (post_id, postDetails) => {
         'Authorization': 'let-me-in',
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify( {postDetails} )
+      body: JSON.stringify( postDetails )
     })
       .then(response => response.json())
       .then(post => dispatch(updatePostSuccess(post)))

@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
+import uuidv4 from 'uuid/v4'
 
 import { getSinglePost } from '../redux/modules/posts/actions'
 import { getCategories } from '../redux/modules/categories/actions'
@@ -41,7 +42,14 @@ class PostForm extends Component {
   handleSubmit = (e) => {
     e.preventDefault()
     let formValues = this.state.formValues
-    debugger
+    if (formValues.id === null) {
+      formValues.id = uuidv4()
+      formValues.timestamp = Date.now()
+      // Need to create new action for creating new post and then dispatch to it.
+    } else {
+      this.props.updatePost(e.target.id, formValues)
+    }
+    
   }
 
   handleChange = (e) => {
