@@ -15,6 +15,12 @@ export default (state = [], action) => {
         return action.post;
       }
 
+    case 'ADD_NEW_POST_SUCCES':
+      return [
+        ...state,
+        action.post
+      ]
+
     default:
       return state;
   }

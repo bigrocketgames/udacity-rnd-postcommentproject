@@ -4,6 +4,7 @@ import 'isomorphic-fetch'
 
 const GET_POSTS_SUCCESS = 'GET_POSTS_SUCCESS';
 const UPDATE_POST_SUCCESS ='UPDATE_POST_SUCCESS';
+const ADD_NEW_POST_SUCCESS = 'ADD_NEW_POST_SUCCESS';
 
 export const getPostsSuccess = (posts) => {
   return {
@@ -15,6 +16,13 @@ export const getPostsSuccess = (posts) => {
 export const updatePostSuccess = (post) => {
   return {
     type: UPDATE_POST_SUCCESS,
+    post: post
+  }
+}
+
+export const addNewPostSuccess = (post) => {
+  return {
+    type: ADD_NEW_POST_SUCCESS,
     post: post
   }
 }
@@ -41,6 +49,22 @@ export const getSinglePost = (postId) => {
     })
       .then(response => response.json())
       .then(post => dispatch(getPostsSuccess(post)))
+      .catch(error => console.log(error))
+  }
+}
+
+export const newPost = (postDetails) => {
+  return dispatch => {
+    return fetch(`${API_URL}/posts`, {
+      method: 'POST',
+      headers: {
+        'Authorization': 'let-me-in',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify( postDetails )
+    })
+      .then(response => response.json())
+      .then(post => dispatch(addNewPostSuccess(post)))
       .catch(error => console.log(error))
   }
 }

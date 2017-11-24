@@ -5,7 +5,7 @@ import uuidv4 from 'uuid/v4'
 
 import { getSinglePost } from '../redux/modules/posts/actions'
 import { getCategories } from '../redux/modules/categories/actions'
-import { updatePost } from '../redux/modules/posts/actions'
+import { updatePost, newPost } from '../redux/modules/posts/actions'
 
 class PostForm extends Component {
   constructor(props) {
@@ -45,7 +45,7 @@ class PostForm extends Component {
     if (formValues.id === null) {
       formValues.id = uuidv4()
       formValues.timestamp = Date.now()
-      // Need to create new action for creating new post and then dispatch to it.
+      this.props.newPost(formValues)
     } else {
       this.props.updatePost(e.target.id, formValues)
     }
@@ -72,7 +72,7 @@ class PostForm extends Component {
 
   render() {
     const { formValues } = this.state
-    const { post } = this.props
+    const { post, categories } = this.props
     
     if (post.id) {
       return(
@@ -87,7 +87,6 @@ class PostForm extends Component {
               <label htmlFor="body">Post: </label>
               <input type="textarea" className="form-control" name="body" value={formValues.body} onChange={this.handleChange} />
             </div>
-  
             <input type="submit" name="submit" value="Edit Post"/>
           </form>
         </div>
@@ -105,6 +104,19 @@ class PostForm extends Component {
               <label htmlFor="body">Post: </label>
               <input type="textarea" className="form-control" name="body" value={formValues.body} onChange={this.handleChange} />
             </div>
+            <div className="form-group">
+              <label htmlFor="author">Author: </label>
+              <input type="text" className="form-control" name="author" value={formValues.author} onChange={this.handleChange} />
+            </div>
+            <div className="form-group">
+              <label htmlFor="category">Category: </label>
+              <select className="form-control" name="category" value={formValues.category} onChange={this.handleChange}>
+                <option value="" disabled>Pick a category:</option>
+                {categories.length > 0 && categories.map((category) => 
+                  <option key={category.name} value={category.name}>{category.name}</option>
+                )}
+              </select>
+            </div>
   
             <input type="submit" name="submit" value="Add New Post"/>
           </form>
@@ -116,7 +128,8 @@ class PostForm extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    post: state.posts
+    post: state.posts,
+    categories: state.categories
   }
 }
 
@@ -124,7 +137,8 @@ const mapDispatchToProps = (dispatch) => {
   return bindActionCreators({
     getSinglePost: getSinglePost,
     getCategories: getCategories,
-    updatePost: updatePost
+    updatePost: updatePost,
+    newPost: newPost
   }, dispatch)
 }
 
