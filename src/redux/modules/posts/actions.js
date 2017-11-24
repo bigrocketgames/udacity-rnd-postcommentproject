@@ -5,6 +5,7 @@ import 'isomorphic-fetch'
 const GET_POSTS_SUCCESS = 'GET_POSTS_SUCCESS';
 const UPDATE_POST_SUCCESS ='UPDATE_POST_SUCCESS';
 const ADD_NEW_POST_SUCCESS = 'ADD_NEW_POST_SUCCESS';
+const DELETE_POST_SUCCESS = 'DELETE_POST_SUCCESS';
 
 export const getPostsSuccess = (posts) => {
   return {
@@ -26,6 +27,14 @@ export const addNewPostSuccess = (post) => {
     post: post
   }
 }
+
+export const deletePostSuccess = (post) => {
+  return {
+    type: DELETE_POST_SUCCESS,
+    post: post
+  }
+}
+
 
 // Async actions - connect to API
 
@@ -82,6 +91,21 @@ export const updatePost = (post_id, postDetails) => {
       .then(response => response.json())
       .then(post => dispatch(updatePostSuccess(post)))
       .catch(error => console.log(error))
+  }
+}
+
+export const postDelete = (post_id) => {
+  return dispatch => {
+    return fetch(`${API_URL}/posts/${post_id}`, {
+      method: 'DELETE',
+      headers: {
+        'Authorization': 'let-me-in',
+        'Content-Type': 'application/json'
+      }
+    })
+      .then(response => response.json())
+      .then(post => dispatch(deletePostSuccess(post)))
+      .then(error => console.log(error))
   }
 }
 

@@ -57,3 +57,7 @@ a.app-title {
 .custom-select {
   box-shadow: 2px 2px 3px 2px black;
 }
+
+.delete-button {
+  margin-left: 10px;
+}

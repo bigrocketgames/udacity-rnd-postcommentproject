@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom'
 import ThumbsUpIcon from 'react-icons/lib/fa/thumbs-up'
 import ThumbsDownIcon from 'react-icons/lib/fa/thumbs-down'
 
-import { getSinglePost, postVote } from '../../redux/modules/posts/actions'
+import { getSinglePost, postVote, postDelete } from '../../redux/modules/posts/actions'
 // import { postVote } from '../../redux/modules/posts/actions'
 import { getComments, commentVote } from '../../redux/modules/comments/actions'
 import Comments from '../../components/Comments'
@@ -16,11 +16,17 @@ class SinglePost extends Component {
 
     this.votePost = this.votePost.bind(this)
     this.voteComment = this.voteComment.bind(this)
+    this.deletePost = this.deletePost.bind(this)
   }
   
   componentDidMount() {
     this.props.getSinglePost(this.props.match.params.post_id)
     this.props.getComments(this.props.match.params.post_id)
+  }
+
+  deletePost = (e) => {
+    e.preventDefault()
+    this.props.postDelete(e.target.id)
   }
 
   votePost = (e, voteType) => {
@@ -52,6 +58,7 @@ class SinglePost extends Component {
           state: { post: post}
         }} 
         className="post-edit-link btn btn-secondary">Edit Post</Link>
+        <button className="btn btn-danger delete-button" id={`${post.id}`} onClick={this.deletePost} >Delete Post</button>
         <hr />
         <br />
         <h4 className="comments-title text-center">COMMENTS</h4>
@@ -73,7 +80,8 @@ const mapDispatchToProps = (dispatch) => {
     getSinglePost: getSinglePost,
     postVote: postVote,
     getComments: getComments,
-    commentVote: commentVote
+    commentVote: commentVote, 
+    postDelete: postDelete
   }, dispatch)
 }
 

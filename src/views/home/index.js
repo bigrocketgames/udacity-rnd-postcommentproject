@@ -6,9 +6,8 @@ import { Link } from 'react-router-dom'
 import Categories from '../../components/Categories'
 import Sortbox from '../../components/Sortbox'
 import Posts from '../../components/Posts'
-import { getPosts } from '../../redux/modules/posts/actions'
+import { getPosts, postVote, postDelete } from '../../redux/modules/posts/actions'
 import { getCategories } from '../../redux/modules/categories/actions'
-import { postVote } from '../../redux/modules/posts/actions'
 
 class Home extends Component {
   constructor(props){
@@ -16,6 +15,7 @@ class Home extends Component {
 
     this.handleChange = this.handleChange.bind(this);
     this.votePost = this.votePost.bind(this);
+    this.deletePost = this.deletePost.bind(this);
   }
 
   state = {
@@ -32,6 +32,11 @@ class Home extends Component {
   votePost = (e, voteType) => {
     e.preventDefault();
     this.props.postVote(e.currentTarget.id, voteType);
+  }
+
+  deletePost = (e) => {
+    e.preventDefault();
+    this.props.postDelete(e.target.id);
   }
 
   componentDidMount() {
@@ -106,7 +111,7 @@ class Home extends Component {
               </div>
               <hr />
               <div className="row">
-                {posts.length > 0 && posts.map((post) => <Posts key={post.id} post={post} vote={this.votePost}/>)}
+                {posts.length > 0 && posts.map((post) => <Posts key={post.id} post={post} vote={this.votePost} deletePost={this.deletePost}/>)}
               </div>
             </div>
           </div>
@@ -127,7 +132,8 @@ const mapDispatchToProps = (dispatch) => {
   return bindActionCreators({
     getPosts: getPosts,
     getCategories: getCategories,
-    postVote: postVote
+    postVote: postVote,
+    postDelete: postDelete
   }, dispatch)
 }
 

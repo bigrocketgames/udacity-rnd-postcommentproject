@@ -21,6 +21,13 @@ export default (state = [], action) => {
         action.post
       ]
 
+    case 'DELETE_POST_SUCCESS':
+      if (state.length > 0) {
+        return state.filter(post => post.id !== action.post.id)
+      } else {
+        return []
+      }
+
     default:
       return state;
   }
