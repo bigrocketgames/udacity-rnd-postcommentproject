@@ -11,6 +11,16 @@ export default (state = [], action) => {
         ...state.slice(index+1)
       ];
 
+    case 'ADD_COMMENT_SUCCESS':
+      if (state.length > 0) {
+        return [
+          ...state,
+          action.comment
+        ]
+      } else {
+        return action.comments
+      }
+
     default:
       return state;
   }

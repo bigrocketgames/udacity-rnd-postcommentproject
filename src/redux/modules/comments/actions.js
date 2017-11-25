@@ -3,12 +3,20 @@ import 'isomorphic-fetch'
 /* action creators */
 
 const GET_COMMENTS_SUCCESS = 'GET_COMMENTS_SUCCESS';
+const ADD_COMMENT_SUCCESS = 'ADD_COMMENT_SUCCESS';
 const UPDATE_COMMENT_SUCCESS ='UPDATE_COMMENT_SUCCESS';
 
 export const getCommentsSuccess = (comments) => {
   return {
     type: GET_COMMENTS_SUCCESS,
     comments: comments
+  }
+}
+
+export const addCommentSuccess = (comment) => {
+  return {
+    type: ADD_COMMENT_SUCCESS,
+    comment: comment
   }
 }
 
@@ -30,6 +38,22 @@ export const getComments = (postId) => {
     })
       .then(response => response.json())
       .then(comments => dispatch(getCommentsSuccess(comments)))
+      .catch(error => console.log(error))
+  }
+}
+
+export const addComment = (commentDetails) => {
+  return dispatch => {
+    return fetch(`${API_URL}/comments`, {
+      method: 'POST',
+      headers: {
+        'Authorization': 'let-me-in',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(commentDetails)
+    })
+      .then(response => response.json())
+      .then(comment => dispatch(addCommentSuccess(comment)))
       .catch(error => console.log(error))
   }
 }

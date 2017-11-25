@@ -5,6 +5,8 @@ import { Link } from 'react-router-dom'
 import ThumbsUpIcon from 'react-icons/lib/fa/thumbs-up'
 import ThumbsDownIcon from 'react-icons/lib/fa/thumbs-down'
 
+import CommentForm from '../../components/CommentForm'
+
 import { getSinglePost, postVote, postDelete } from '../../redux/modules/posts/actions'
 // import { postVote } from '../../redux/modules/posts/actions'
 import { getComments, commentVote } from '../../redux/modules/comments/actions'
@@ -58,8 +60,10 @@ class SinglePost extends Component {
           state: { post: post}
         }} 
         className="post-edit-link btn btn-secondary">Edit Post</Link>
-        <button className="btn btn-danger delete-button" id={`${post.id}`} onClick={this.deletePost} >Delete Post</button>
+        <button className="btn btn-danger delete-button" id={post.id} onClick={this.deletePost} >Delete Post</button>
         <hr />
+        <br />
+        <CommentForm parent_id={post.id} />
         <br />
         <h4 className="comments-title text-center">COMMENTS</h4>
         {comments.length > 0 && comments.map((comment) => <Comments key={comment.id} comment={comment} voteComment={this.voteComment} />) }
