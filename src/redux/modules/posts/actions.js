@@ -105,7 +105,7 @@ export const postDelete = (post_id) => {
     })
       .then(response => response.json())
       .then(post => dispatch(deletePostSuccess(post)))
-      .then(error => console.log(error))
+      .catch(error => console.log(error))
   }
 }
 
