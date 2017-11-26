@@ -96,7 +96,10 @@ class Home extends Component {
             <div className="col-sm-3 sidebar-left">
               <h5 className="text-center sidebar-title">Pick a Category</h5>
               <ul className="category-list">
-              {categories.map((category) => <Categories key={category.name} category={category} />)}
+                <li className="category-name-link">
+                  <Link to={"/"}>All Posts</Link>
+                </li>
+                {categories.map((category) => <Categories key={category.name} category={category} />)}
               </ul>
             </div>
             <div className="col-sm-8 posts-main">
