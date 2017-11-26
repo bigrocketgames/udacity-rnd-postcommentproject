@@ -18,7 +18,14 @@ export default (state = [], action) => {
           action.comment
         ]
       } else {
-        return action.comments
+        return state.concat(action.comment);
+      }
+
+    case 'DELETE_COMMENT_SUCCESS':
+      if (state.length > 0) {
+        return state.filter(comment => comment.id !== action.comment.id)
+      } else {
+        return []
       }
 
     default:
