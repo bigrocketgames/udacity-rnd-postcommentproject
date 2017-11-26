@@ -2,23 +2,29 @@ import React, { Component } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
+import Modal from 'react-modal'
 import ThumbsUpIcon from 'react-icons/lib/fa/thumbs-up'
 import ThumbsDownIcon from 'react-icons/lib/fa/thumbs-down'
 
 import CommentForm from '../../components/CommentForm'
-
-import { getSinglePost, postVote, postDelete } from '../../redux/modules/posts/actions'
-// import { postVote } from '../../redux/modules/posts/actions'
-import { getComments, commentVote } from '../../redux/modules/comments/actions'
 import Comments from '../../components/Comments'
+import { getSinglePost, postVote, postDelete } from '../../redux/modules/posts/actions'
+import { getComments, commentVote, commentDelete } from '../../redux/modules/comments/actions'
 
 class SinglePost extends Component {
   constructor(props) {
     super(props)
+    this.state = {
+      commentModalOpen: false,
+      comment: null
+    }
 
     this.votePost = this.votePost.bind(this)
     this.voteComment = this.voteComment.bind(this)
     this.deletePost = this.deletePost.bind(this)
+    this.deleteComment = this.deleteComment.bind(this)
+    this.openCommentModal = this.openCommentModal.bind(this)
+    this.closeCommentModal = this.closeCommentModal.bind(this)
   }
   
   componentDidMount() {
@@ -26,9 +32,28 @@ class SinglePost extends Component {
     this.props.getComments(this.props.match.params.post_id)
   }
 
+  openCommentModal = (comment) => {
+    this.setState(() => ({
+      commentModalOpen: true,
+      comment: comment
+    }))
+  }
+
+  closeCommentModal = () => {
+    this.setState(() => ({
+      commentModalOpen: false,
+      comment: null
+    }))
+  }
+
   deletePost = (e) => {
     e.preventDefault()
     this.props.postDelete(e.target.id)
+  }
+
+  deleteComment = (e) => {
+    e.preventDefault()
+    this.props.commentDelete(e.target.id)
   }
 
   votePost = (e, voteType) => {
@@ -43,6 +68,7 @@ class SinglePost extends Component {
 
   render(){
     const { post, comments } = this.props
+    const { commentModalOpen, comment } = this.state
 
     return(
       <div className="container">
@@ -66,7 +92,15 @@ class SinglePost extends Component {
         <CommentForm parent_id={post.id} />
         <br />
         <h4 className="comments-title text-center">COMMENTS</h4>
-        {comments.length > 0 && comments.map((comment) => <Comments key={comment.id} comment={comment} voteComment={this.voteComment} />) }
+        {comments.length > 0 && comments.map((comment) => <Comments key={comment.id} comment={comment} voteComment={this.voteComment} deleteComment={this.deleteComment} openModal={this.openCommentModal} />) }
+
+
+        <Modal
+          isOpen={commentModalOpen}
+          onRequestClose={this.closeCommentModal}
+        >
+          { commentModalOpen === false ? null : <CommentForm comment={comment} closeModal={this.closeCommentModal} /> }
+        </Modal>
       </div>
     )
   }
@@ -85,7 +119,8 @@ const mapDispatchToProps = (dispatch) => {
     postVote: postVote,
     getComments: getComments,
     commentVote: commentVote, 
-    postDelete: postDelete
+    postDelete: postDelete,
+    commentDelete: commentDelete
   }, dispatch)
 }
 
