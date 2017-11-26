@@ -8,6 +8,8 @@ import { addComment, commentUpdate } from '../redux/modules/comments/actions'
 class CommentForm extends Component {
   constructor(props) {
     super(props)
+
+    // State set depending on whether or not a comment was passed in for editing or sets a fresh state for a new comment.
     if (props.comment) {
       this.state = {
         formValues: {
@@ -62,6 +64,7 @@ class CommentForm extends Component {
     this.setState({formValues})
   }
 
+  // This clears the comment form when called so duplicate comments aren't added without retyping.
   resetForm = () => {
     this.setState({
       formValues: {
@@ -78,7 +81,7 @@ class CommentForm extends Component {
     const { parent_id } = this.props
     const { formValues } = this.state
 
-
+    // Returns different variations of the comment form depending on if it is for a new comment or editing a comment.
     if (formValues.parentId === ""){
     return (
       <div className="container">
@@ -97,7 +100,7 @@ class CommentForm extends Component {
     )} else {
       return (
         <div className="container">
-          <form onSubmit={(e) => this.handleSubmit(e, parent_id)}>
+          <form onSubmit={(e) => this.handleSubmit(e, formValues.parentId)}>
             <div className="form-group">
               <label htmlFor="body" >Comment: </label>
               <input type="textarea" className="form-control" name="body" value={formValues.body} onChange={this.handleChange} />
