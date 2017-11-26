@@ -46,8 +46,10 @@ class PostForm extends Component {
       formValues.id = uuidv4()
       formValues.timestamp = Date.now()
       this.props.newPost(formValues)
+      .then(this.props.history.push(`/${formValues.category}/${formValues.id}`))
     } else {
       this.props.updatePost(e.target.id, formValues)
+        .then(this.props.history.goBack())
     }
     
   }
