@@ -10,6 +10,8 @@ import { updatePost, newPost } from '../redux/modules/posts/actions'
 class PostForm extends Component {
   constructor(props) {
     super(props)
+
+    // Sets state for either a new post or editing a post.
     if (props.location.state) {
       this.state = {
         formValues: {
@@ -39,6 +41,7 @@ class PostForm extends Component {
     this.handleChange = this.handleChange.bind(this)
   }
 
+  // Submits form either for adding a new post or updating an existing post.
   handleSubmit = (e) => {
     e.preventDefault()
     let formValues = this.state.formValues
@@ -76,6 +79,7 @@ class PostForm extends Component {
     const { formValues } = this.state
     const { post, categories } = this.props
     
+    // Renders different variations of the post form for either a new post or to edit an existing post.
     if (post.id) {
       return(
         <div className="container">

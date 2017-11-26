@@ -12,14 +12,13 @@ import { getCategories } from '../../redux/modules/categories/actions'
 class Home extends Component {
   constructor(props){
     super(props)
+    this.state = {
+      sortBy: ""
+    }
 
     this.handleChange = this.handleChange.bind(this);
     this.votePost = this.votePost.bind(this);
     this.deletePost = this.deletePost.bind(this);
-  }
-
-  state = {
-    sortBy: ""
   }
 
   handleChange = (e) => {
