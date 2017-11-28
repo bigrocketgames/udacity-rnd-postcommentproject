@@ -87,11 +87,11 @@ class PostForm extends Component {
           <form className="post-form" id={`${post.id}`} onSubmit={this.handleSubmit}>
             <div className="form-group">
               <label htmlFor="title" >Post Title: </label>
-              <input type="text" className="form-control" name="title" value={formValues.title} onChange={this.handleChange} />
+              <input type="text" className="form-control" name="title" value={formValues.title} onChange={this.handleChange} required/>
             </div>
             <div className="form-group">
               <label htmlFor="body">Post: </label>
-              <input type="textarea" className="form-control" name="body" value={formValues.body} onChange={this.handleChange} />
+              <input type="textarea" className="form-control" name="body" value={formValues.body} onChange={this.handleChange} required/>
             </div>
             <input type="submit" name="submit" value="Edit Post"/>
           </form>
@@ -104,19 +104,19 @@ class PostForm extends Component {
           <form className="post-form" id={`${post.id}`} onSubmit={this.handleSubmit}>
             <div className="form-group">
               <label htmlFor="title" >Post Title: </label>
-              <input type="text" className="form-control" name="title" value={formValues.title} onChange={this.handleChange} />
+              <input type="text" className="form-control" name="title" value={formValues.title} onChange={this.handleChange} required/>
             </div>
             <div className="form-group">
               <label htmlFor="body">Post: </label>
-              <input type="textarea" className="form-control" name="body" value={formValues.body} onChange={this.handleChange} />
+              <input type="textarea" className="form-control" name="body" value={formValues.body} onChange={this.handleChange} required/>
             </div>
             <div className="form-group">
               <label htmlFor="author">Author: </label>
-              <input type="text" className="form-control" name="author" value={formValues.author} onChange={this.handleChange} />
+              <input type="text" className="form-control" name="author" value={formValues.author} onChange={this.handleChange} required/>
             </div>
             <div className="form-group">
               <label htmlFor="category">Category: </label>
-              <select className="form-control" name="category" value={formValues.category} onChange={this.handleChange}>
+              <select className="form-control" name="category" value={formValues.category} onChange={this.handleChange} required>
                 <option value="" disabled>Pick a category:</option>
                 {categories.length > 0 && categories.map((category) => 
                   <option key={category.name} value={category.name}>{category.name}</option>

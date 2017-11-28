@@ -88,11 +88,11 @@ class CommentForm extends Component {
         <form onSubmit={(e) => this.handleSubmit(e, parent_id)}>
           <div className="form-group">
             <label htmlFor="body" >Comment: </label>
-            <input type="textarea" className="form-control" name="body" value={formValues.body} onChange={this.handleChange} />
+            <input type="textarea" className="form-control" name="body" value={formValues.body} onChange={this.handleChange} required/>
           </div>
           <div className="form-group">
             <label htmlFor="author" >Author: </label>
-            <input type="textarea" className="form-control" name="author" value={formValues.author} onChange={this.handleChange} />
+            <input type="textarea" className="form-control" name="author" value={formValues.author} onChange={this.handleChange} required/>
           </div>
           <input type="submit" name="submit" value="Add Comment"/>
         </form>
@@ -103,11 +103,11 @@ class CommentForm extends Component {
           <form onSubmit={(e) => this.handleSubmit(e, formValues.parentId)}>
             <div className="form-group">
               <label htmlFor="body" >Comment: </label>
-              <input type="textarea" className="form-control" name="body" value={formValues.body} onChange={this.handleChange} />
+              <input type="textarea" className="form-control" name="body" value={formValues.body} onChange={this.handleChange} required/>
             </div>
             <div className="form-group">
               <label htmlFor="author" >Author: </label>
-              <input type="textarea" className="form-control" name="author" value={formValues.author} onChange={this.handleChange} disabled/>
+              <input type="textarea" className="form-control" name="author" value={formValues.author} onChange={this.handleChange} disabled required/>
             </div>
             <input type="submit" name="submit" value="Update Comment"/>
           </form>
